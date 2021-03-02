@@ -110,4 +110,3 @@ if __name__ == "__main__":
     db = Database("sqlite:///gb_blog.db")
     parser = GbBlogParse("https://geekbrains.ru/posts", db)
     parser.run()
-

@@ -81,3 +81,4 @@ class Database:
             session.rollback()
         finally:
             session.close()
+

@@ -59,4 +59,3 @@ class Writer(Base, IdMixin, UrlMixin, NameMixin):
 class Tag(Base, IdMixin, UrlMixin, NameMixin):
     __tablename__ = "tags"
     posts = relationship("Post", secondary=tag_post)
-
