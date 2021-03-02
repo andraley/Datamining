@@ -71,36 +71,6 @@ class Database:
             comments = self.create_comment(session, data["comments"])
             post.comments.extend(comments)
 
-        # if data["comments"]:
-        #     print(data["comments"])
-        #     print(1)
-        #     comments = map(
-        #         lambda comments_data: self._get_or_create(
-        #             session, models.Comment, models.Comment.id, comments_data["text"], **comments_data,
-        #             author=author, post=post
-        #         ),
-        #         data["comments"],
-        #     )
-        #     session.add(comments)
-
-            # for comment in data["comments"]:
-            #     print(comment["text"])
-            #     print(1)
-
-                # comments = self._get_or_create(
-                #     session,
-                #     models.Comment,
-                #     models.Comment.id,
-                #     comment["name"],
-                #     comment["text"],
-                #     # **data["comments"],
-                #     author=comment["name"],
-                #     # url=comment["url"],
-                #     post=post,
-                # )
-                # session.add(comments)
-                # post.comments.extend(comments)
-
         post.tags.extend(tags)
         session.add(post)
 

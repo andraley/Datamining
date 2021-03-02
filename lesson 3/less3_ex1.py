@@ -6,6 +6,7 @@ from database.db import Database
 import datetime as dt
 from time import sleep
 
+
 class GbBlogParse:
     def __init__(self, start_url, database):
         self.db = database
@@ -35,8 +36,6 @@ class GbBlogParse:
                 self.done_urls.add(link)
                 self.tasks.append(task)
 
-
-
     def _parse_feed(self, url, soup) -> None:
         ul = soup.find("ul", attrs={"class": "gb__pagination"})
         self.__create_task(url, self._parse_feed, ul.find_all("a"))
@@ -51,7 +50,6 @@ class GbBlogParse:
         data = response.json()
         result = self._construct_comments(data)
         return result
-
 
     def _construct_comments(self, comments):
         result = []
@@ -92,9 +90,6 @@ class GbBlogParse:
         }
         return data
 
-
-
-
     def _get_task(self, url, callback: typing.Callable) -> typing.Callable:
         def task():
             soup = self._get_soup(url)
@@ -109,7 +104,6 @@ class GbBlogParse:
             result = task()
             if isinstance(result, dict):
                 self.db.create_post(result)
-
 
 
 if __name__ == "__main__":
