@@ -24,14 +24,16 @@ class GbAutoYoulaItem(scrapy.Item):
     author = scrapy.Field()
 
 
-class GbHhItem(scrapy.Item):
+class Insta(scrapy.Item):
     _id = scrapy.Field()
-    url = scrapy.Field(output_processor=TakeFirst())
-    title = scrapy.Field(output_processor=TakeFirst())
-    salary = scrapy.Field()
-    description = scrapy.Field()
-    skills = scrapy.Field()
-    author = scrapy.Field()
-    company_name = scrapy.Field()
-    site = scrapy.Field()
-    business = scrapy.Field()
+    date_parse = scrapy.Field()
+    data = scrapy.Field()
+    photos = scrapy.Field()
+
+
+class InstaTag(Insta):
+    pass
+
+
+class InstaPost(Insta):
+    pass
