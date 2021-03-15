@@ -8,34 +8,24 @@
 from itemadapter import ItemAdapter
 from scrapy import Request
 from scrapy.pipelines.images import ImagesPipeline
-
-from pymongo import MongoClient
-
-
-class GbParsePipeline:
-    def process_item(self, item, spider):
-        return item
+import pymongo
 
 
-class GbParseMongoPipeline:
+class MongoPipeline:
     def __init__(self):
-        client = MongoClient()
-        self.db = client["gb_db"]
+        self.db = pymongo.MongoClient()["gb_db"]
 
     def process_item(self, item, spider):
-        self.db[type(item).__name__].insert_one(item)
+        if not self.db[item.__class__.__name__].count({"url": item["url"]}):
+            self.db[item.__class__.__name__].insert_one(item)
         return item
 
 
-class GbImageDownloadPipeline(ImagesPipeline):
+class GbImagePipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
-        for url in item.get("photos", []):
-            yield Request(url)
-        image = item["data"].get("profile_pic_url") or item["data"].get("display_url")
-        if image:
-            yield Request(image)
+        for img_url in item.get("images", []):
+            yield Request(img_url)
 
     def item_completed(self, results, item, info):
-        if results:
-            item["photos"] = [itm[1] for itm in results]
+        item["images"] = [itm[1] for itm in results]
         return item
