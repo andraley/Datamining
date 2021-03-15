@@ -5,16 +5,10 @@ from scrapy.settings import Settings
 from gb_parse.spiders.instagram import InstagramSpider
 
 
-if __name__ == "__main__":
-    dotenv.load_dotenv(".env")
-    tags = ["home", "photo"]
+if __name__ == '__main__':
+    dotenv.load_dotenv('.env')
     crawler_settings = Settings()
-    crawler_settings.setmodule("gb_parse.settings")
-    crawler_proc = CrawlerProcess(settings=crawler_settings)
-    crawler_proc.crawl(
-        InstagramSpider,
-        login=os.getenv("INST_LOGIN"),
-        password=os.getenv("INST_PASSWORD"),
-        tags=tags,
-    )
-    crawler_proc.start()
+    crawler_settings.setmodule('gb_parse.settings')
+    crawler_process = CrawlerProcess(settings=crawler_settings)
+    crawler_process.crawl(InstagramSpider, login=os.getenv('INST_LOGIN'), password=os.getenv('INST_PASSWORD'))
+    crawler_process.start()
